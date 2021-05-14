@@ -18,6 +18,6 @@ int main() {
     
     std::cout << "Eigen Matrix:" << '\n';
     std::cout << "First matrix: \n" << e1 << "\nSecond matrix: \n" << e2 << "\nMultiplication: \n" << 
-                                                                            e1.array()*e2.array() << '\n';    
+                                                                             e1.array()*e2.array() << '\n';    
     
 }
