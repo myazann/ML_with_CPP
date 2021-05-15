@@ -41,51 +41,38 @@ int main() {
         }
         
         std::string tp;
-        std::string temp;
         
         clock_t begin_time;
-        float wif_time{0};
         float if_time{0};
         
         dlib::matrix<double> data;
         std::stringstream str_stream;
         
         while(getline(file, tp)){
-            
-            std::cout << tp << "\n";
 
             begin_time = std::clock();
             
-            temp = std::regex_replace(tp, std::regex("Iris-setosa"), "1");
-            temp = std::regex_replace(tp, std::regex("Iris-versicolor"), "2");
-            temp = std::regex_replace(tp, std::regex("Iris-virginica"), "3");
-            
-            wif_time += float(std::clock() - begin_time)/CLOCKS_PER_SEC;
-            
-
-            begin_time = std::clock();
             if(tp.find("Iris-setosa") != std::string::npos)
-                temp = std::regex_replace(tp, std::regex("Iris-setosa"), "1");
+                tp = std::regex_replace(tp, std::regex("Iris-setosa"), "1");
             else if(tp.find("Iris-versicolor") != std::string::npos)
-                temp = std::regex_replace(tp, std::regex("Iris-versicolor"), "2");
+                tp = std::regex_replace(tp, std::regex("Iris-versicolor"), "2");
             else
-                temp = std::regex_replace(tp, std::regex("Iris-virginica"), "3"); 
+                tp = std::regex_replace(tp, std::regex("Iris-virginica"), "3"); 
             
             if_time += float(std::clock() - begin_time)/CLOCKS_PER_SEC;
             
-            str_stream << temp + '\n';
+            str_stream << tp + '\n';
                       
           }
         
         file.close();              
-        std::cout << "Without If: " << wif_time << '\n';
         std::cout << "With If: " << if_time << '\n'; 
         
         str_stream >> data;
-        dlib::matrix<double> x_data = dlib::subm(data, 0, 0, data.nr()-1, data.nc());
-
         std::cout << data;
-        std::cout << "Row num: " << data.nr() << " Col num: " << data.nc() << '\n';
+        
+        dlib::matrix<double> x_data = dlib::subm(data, 0, 0, data.nr(), data.nc()-1);
+        std::cout << "Num Samples: " << x_data.nr() << " Num Features: " << x_data.nc() << '\n';
     }
     
     else
