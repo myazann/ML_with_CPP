@@ -1,4 +1,5 @@
 #include "/dlib/dlib/matrix.h"
+#include "/dlib/dlib/statistics.h"
 #include <eigen3/Eigen/Dense>
 #include <filesystem>
 #include <regex>
@@ -73,6 +74,12 @@ int main() {
         
         dlib::matrix<double> x_data = dlib::subm(data, 0, 0, data.nr(), data.nc()-1);
         std::cout << "Num Samples: " << x_data.nr() << " Num Features: " << x_data.nc() << '\n';
+        
+        std::vector<dlib::matrix<double>> samples;
+        for (int r = 0; r < x_data.nr(); ++r) {
+        samples.push_back(rowm(x_data, r));
+        }
+         
     }
     
     else
